@@ -19,6 +19,7 @@
         </property>
 
         <mapping resource="hibernate_github/Employe.hbm.xml"/>
+        <mapping resource="hibernate_github/Certificate.hbm.xml"/>
         
     </session-factory>
 </hibernate-configuration>

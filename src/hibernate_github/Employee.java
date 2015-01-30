@@ -5,6 +5,8 @@
  */
 package hibernate_github;
 
+import java.util.Set;
+
 public class Employee {
     
     private int id;
@@ -14,6 +16,8 @@ public class Employee {
     private String lastName;
     
     private int salario;
+    
+    private Set<Certificate> certificates;
 
     public Employee() {
     }
@@ -50,5 +54,13 @@ public class Employee {
 
     public void setSalario(int salario) {
         this.salario = salario;
+    }
+    
+    public Set<Certificate> getCertificates() {
+        return certificates;
+    }
+    
+    public void setCertificates(Set<Certificate> certificates) {
+        this.certificates = certificates;
     }
 }

@@ -5,6 +5,8 @@
  */
 package hibernate_github;
 
+import java.util.HashSet;
+
 /**
  *
  * @author Enrique
@@ -12,26 +14,37 @@ package hibernate_github;
 public class Main {
     
     public static void main(String[] args) {
+        ManageEmployee ME = new ManageEmployee(); 
         
-        ManageEmployee ME = new ManageEmployee();
+        /* Let us have a set of certificates for the first employee */ 
+        HashSet set1 = new HashSet(); 
+        set1.add(new Certificate("MCA")); 
+        set1.add(new Certificate("MBA")); 
+        set1.add(new Certificate("PMP")); 
         
-        /* Add few employee records in database */
-        Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
-        Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
-        Integer empID3 = ME.addEmployee("John", "Paul", 10000);
+        /* Add employee records in the database */ 
+        Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1); 
         
-        // List down all the employees
-        ME.listEmployees();
+        /* Another set of certificates for the second employee */ 
+        HashSet set2 = new HashSet(); 
+        set2.add(new Certificate("ACA")); 
+        set2.add(new Certificate("AMA")); 
         
-        // Update employee's records
-        ME.updateEmployee(empID1, 5000);
+        /* Add another employee record in the database */ 
+        Integer empID2 = ME.addEmployee("Testero", "Tester", 2000, set2);
         
-        // Delete an employee from the database
+        /* List down all the employees */ 
+        ME.listEmployees(); 
+        
+        /* Update employee's salary records */ 
+        ME.updateEmployee(empID1, 5000); 
+        
+        /* Delete an employee from the database */
         ME.deleteEmployee(empID2);
         
-        // List down new list of the employees
-        ME.listEmployees();
-    
+        /* List down all the employees */
+        ME.listEmployees(); 
+        
         ME.close();
     }
 }
