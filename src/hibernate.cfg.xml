@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://23c76216-6666-4be4-a243-a3de0033796a.mysql.sequelizer.com:3306/db23c7621666664be4a243a3de0033796a?zeroDateTimeBehavior=convertToNull
+        </property>
+        <property name="hibernate.connection.username">
+            dnnntponvgdhkoyn
+        </property>
+        <property name="hibernate.connection.password">
+            tA5XdMLXo7tWU5CsqJgAyAotyneh38BHhmxeMDdD2QsVqTV3SWaVADg2mKxXHD4p
+        </property>
+
+        <mapping resource="ad_hibernate_a_mano/Employe.hbm.xml"/>
+        
+    </session-factory>
+</hibernate-configuration>
