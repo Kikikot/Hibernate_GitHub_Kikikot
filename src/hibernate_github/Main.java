@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ad_hibernate_a_mano;
+package hibernate_github;
 
 /**
  *
@@ -20,10 +20,6 @@ public class Main {
         Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
         Integer empID3 = ME.addEmployee("John", "Paul", 10000);
         
-    /*    Integer empID1 = 26;
-        Integer empID2 = 27;
-        Integer empID3 = 28;
-    */    
         // List down all the employees
         ME.listEmployees();
         
@@ -39,6 +35,3 @@ public class Main {
         ME.close();
     }
 }
-
-//<mapping class="ad_hibernate_a_mano.Employee"/>
-//<mapping resource="ad_hibernate_a_mano/Employee.hbm.xml"/>

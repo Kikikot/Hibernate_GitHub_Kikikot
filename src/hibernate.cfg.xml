@@ -18,7 +18,7 @@
             tA5XdMLXo7tWU5CsqJgAyAotyneh38BHhmxeMDdD2QsVqTV3SWaVADg2mKxXHD4p
         </property>
 
-        <mapping resource="ad_hibernate_a_mano/Employe.hbm.xml"/>
+        <mapping resource="hibernate_github/Employe.hbm.xml"/>
         
     </session-factory>
 </hibernate-configuration>
