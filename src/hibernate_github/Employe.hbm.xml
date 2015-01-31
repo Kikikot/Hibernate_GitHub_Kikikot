@@ -5,10 +5,11 @@
         <id column="id" name="id" type="integer" access="field">
             <generator class="native"/>
         </id>
-        <set name="certificates" cascade="all" sort="hibernate_github.MyClass">
+        <list name="certificates" cascade="all" >
             <key column="employee_id"/>
+            <list-index column="idx"/>
             <one-to-many class="hibernate_github.Certificate"/>
-        </set>
+        </list>
         <property name="firstName" column="first_Name" type="string"/>
         <property name="lastName" column="last_Name" type="string"/>
         <property name="salario" column="salary" type="integer"/>

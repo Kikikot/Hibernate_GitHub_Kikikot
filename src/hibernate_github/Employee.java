@@ -5,7 +5,7 @@
  */
 package hibernate_github;
 
-import java.util.SortedSet;
+import java.util.List;
 
 public class Employee {
     
@@ -17,7 +17,7 @@ public class Employee {
     
     private int salario;
     
-    private SortedSet<Certificate> certificates;
+    private List<Certificate> certificates;
 
     public Employee() {
     }
@@ -56,11 +56,11 @@ public class Employee {
         this.salario = salario;
     }
     
-    public SortedSet<Certificate> getCertificates() {
+    public List<Certificate> getCertificates() {
         return certificates;
     }
     
-    public void setCertificates(SortedSet<Certificate> certificates) {
+    public void setCertificates(List<Certificate> certificates) {
         this.certificates = certificates;
     }
 }

@@ -5,7 +5,7 @@
  */
 package hibernate_github;
 
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         ManageEmployee ME = new ManageEmployee(); 
         
-        TreeSet set1 = new TreeSet();
+        ArrayList set1 = new ArrayList();
         set1.add(new Certificate("MCA"));
         set1.add(new Certificate("DBA")); 
         set1.add(new Certificate("PMP"));
@@ -26,7 +26,7 @@ public class Main {
         Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1);
         
         /* Another set of certificates for the second employee */
-        TreeSet set2 = new TreeSet();
+        ArrayList set2 = new ArrayList();
         set2.add(new Certificate("ACA"));
         set2.add(new Certificate("ABA"));
         

@@ -5,9 +5,9 @@
  */
 package hibernate_github;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,7 +36,7 @@ public class ManageEmployee {
     }
     
     /* Method to add an employee record in the database */ 
-    public Integer addEmployee(String fname, String lname, int salary, SortedSet cert){ 
+    public Integer addEmployee(String fname, String lname, int salary, ArrayList cert){ 
         Session session = factory.openSession(); 
         Transaction tx = null;
         Integer employeeID = null; 
@@ -67,7 +67,7 @@ public class ManageEmployee {
                 System.out.print("First Name: " + employee.getFirstName()); 
                 System.out.print("    Last Name: " + employee.getLastName()); 
                 System.out.println("    Salary: " + employee.getSalario()); 
-                SortedSet certificates = employee.getCertificates(); 
+                List certificates = employee.getCertificates(); 
                 for (Iterator iterator2 = certificates.iterator(); iterator2.hasNext();){ 
                     Certificate certName = (Certificate) iterator2.next(); 
                     System.out.println("        Certificate: " + certName.getName()); 
