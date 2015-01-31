@@ -5,7 +5,7 @@
  */
 package hibernate_github;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  *
@@ -16,19 +16,31 @@ public class Main {
     public static void main(String[] args) {
         ManageEmployee ME = new ManageEmployee(); 
         
-        HashMap set = new HashMap();
+        TreeMap set = new TreeMap();
         set.put("ComputerScience", new Certificate("MCA"));
-        set.put("BusinessManagement", new Certificate("MBA"));
         set.put("ProjectManagement", new Certificate("PMP"));
+        set.put("BusinessManagement", new Certificate("MBA"));
         
         /* Add employee records in the database */
         Integer empID = ME.addEmployee("Manoj", "Kumar", 4000, set);
+        
+        /* Another set of certificates for the second employee */
+        TreeMap set2 = new TreeMap();
+        set2.put("ComputerScience", new Certificate("MCA"));
+        set2.put("BusinessManagement", new Certificate("MBA"));
+        
+        
+        /* Add another employee record in the database */
+        Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);
         
         /* List down all the employees */
         ME.listEmployees();
         
         /* Update employee's salary records */
         ME.updateEmployee(empID, 5000);
+        
+        /* Delete an employee from the database */
+        ME.deleteEmployee(empID2);
         
         /* List down all the employees */
         ME.listEmployees();

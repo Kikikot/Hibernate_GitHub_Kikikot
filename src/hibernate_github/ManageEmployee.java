@@ -5,12 +5,11 @@
  */
 package hibernate_github;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,7 +38,7 @@ public class ManageEmployee {
     }
     
     /* Method to add an employee record in the database */ 
-    public Integer addEmployee(String fname, String lname, int salary, HashMap cert){ 
+    public Integer addEmployee(String fname, String lname, int salary, TreeMap cert){ 
         Session session = factory.openSession(); 
         Transaction tx = null;
         Integer employeeID = null; 
@@ -70,13 +69,11 @@ public class ManageEmployee {
                 System.out.print("First Name: " + employee.getFirstName()); 
                 System.out.print("    Last Name: " + employee.getLastName()); 
                 System.out.println("    Salary: " + employee.getSalario()); 
-                Map certificates = employee.getCertificates(); 
-                System.out.println("Certificate: " +
-                        (((Certificate)certificates.get("ComputerScience")).getName())); 
-                System.out.println("Certificate: " +
-                        (((Certificate)certificates.get("BusinessManagement")).getName()));
-                System.out.println("Certificate: " +
-                        (((Certificate)certificates.get("ProjectManagement")).getName()));
+                SortedMap<String, Certificate> map = employee.getCertificates();
+                for(Map.Entry<String,Certificate> entry : map.entrySet()){
+                    System.out.print("\tCertificate Type: " + entry.getKey());
+                    System.out.println(", Name: " + (entry.getValue()).getName());
+                }
             } tx.commit(); 
         }catch (HibernateException e) { 
             if (tx!=null) tx.rollback(); 

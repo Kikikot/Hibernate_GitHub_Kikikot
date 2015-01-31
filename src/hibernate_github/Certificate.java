@@ -5,7 +5,7 @@
  */
 package hibernate_github;
 
-public class Certificate {
+public class Certificate implements Comparable <String> {
     private int id;
     private String name;
     
@@ -27,5 +27,19 @@ public class Certificate {
     
     public void setName( String name ) { 
         this.name = name;
+    }
+    
+    public int compareTo(String that){
+        final int BEFORE = -1;
+        final int AFTER = 1;
+        
+        if (that == null) return BEFORE;
+        
+        Comparable thisCertificate = this;
+        Comparable thatCertificate = that;
+        
+        if(thisCertificate == null) return AFTER;
+        else if(thatCertificate == null) return BEFORE;
+        else return thisCertificate.compareTo(thatCertificate);
     }
 }
