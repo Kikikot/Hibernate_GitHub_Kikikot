@@ -27,8 +27,9 @@ public class Main {
         
         /* Another set of certificates for the second employee */
         ArrayList set2 = new ArrayList();
-        set2.add(new Certificate("ACA"));
+        set2.add(new Certificate("ADA"));
         set2.add(new Certificate("ABA"));
+        set2.add(new Certificate("ACA"));
         
         /* Add another employee record in the database */
         Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);

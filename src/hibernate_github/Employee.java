@@ -5,7 +5,7 @@
  */
 package hibernate_github;
 
-import java.util.List;
+import java.util.Collection;
 
 public class Employee {
     
@@ -17,7 +17,7 @@ public class Employee {
     
     private int salario;
     
-    private List<Certificate> certificates;
+    private Collection<Certificate> certificates;
 
     public Employee() {
     }
@@ -56,11 +56,11 @@ public class Employee {
         this.salario = salario;
     }
     
-    public List<Certificate> getCertificates() {
+    public Collection<Certificate> getCertificates() {
         return certificates;
     }
     
-    public void setCertificates(List<Certificate> certificates) {
+    public void setCertificates(Collection<Certificate> certificates) {
         this.certificates = certificates;
     }
 }

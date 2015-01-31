@@ -6,6 +6,7 @@
 package hibernate_github;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -67,7 +68,7 @@ public class ManageEmployee {
                 System.out.print("First Name: " + employee.getFirstName()); 
                 System.out.print("    Last Name: " + employee.getLastName()); 
                 System.out.println("    Salary: " + employee.getSalario()); 
-                List certificates = employee.getCertificates(); 
+                Collection certificates = employee.getCertificates(); 
                 for (Iterator iterator2 = certificates.iterator(); iterator2.hasNext();){ 
                     Certificate certName = (Certificate) iterator2.next(); 
                     System.out.println("        Certificate: " + certName.getName()); 
