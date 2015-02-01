@@ -16,31 +16,20 @@ public class Main {
     public static void main(String[] args) {
         ManageEmployee ME = new ManageEmployee(); 
         
-        TreeMap set = new TreeMap();
-        set.put("ComputerScience", new Certificate("MCA"));
-        set.put("ProjectManagement", new Certificate("PMP"));
-        set.put("BusinessManagement", new Certificate("MBA"));
-        
-        /* Add employee records in the database */
-        Integer empID = ME.addEmployee("Manoj", "Kumar", 4000, set);
-        
-        /* Another set of certificates for the second employee */
-        TreeMap set2 = new TreeMap();
-        set2.put("ComputerScience", new Certificate("MCA"));
-        set2.put("BusinessManagement", new Certificate("MBA"));
-        
-        
-        /* Add another employee record in the database */
-        Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);
+        /* Add few employee records in database */
+        Integer empID1 = ME.addEmployee("Zara", "Ali", 2000);
+        Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
+        Integer empID3 = ME.addEmployee("John", "Paul", 5000);
+        Integer empID4 = ME.addEmployee("Mohd", "Yasee", 3000);
         
         /* List down all the employees */
-        ME.listNameEmployesWithSalaryBiggerThan(3500);
+        ME.listEmployees();
         
-        /* Update employee's salary records */
-        ME.updateEmployee(empID2, 5000);
+        /* Print Total employee's count */
+        ME.countEmployee();
         
-        /* List down all the employees */
-        ME.listNameEmployesWithSalaryBiggerThan(3500);
+        /* Print Toatl salary */
+        ME.totalSalary();
         
         ME.close();
     }

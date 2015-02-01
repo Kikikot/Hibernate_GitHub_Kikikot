@@ -7,14 +7,14 @@ package hibernate_github;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -38,16 +38,15 @@ public class ManageEmployee {
     }
     
     /* Method to add an employee record in the database */ 
-    public Integer addEmployee(String fname, String lname, int salary, TreeMap cert){ 
+    public Integer addEmployee(String fname, String lname, int salary){ 
         Session session = factory.openSession(); 
         Transaction tx = null;
         Integer employeeID = null; 
         try{ 
-            tx = session.beginTransaction(); 
-            Employee employee = new Employee(fname, lname, salary); 
-            employee.setCertificates(cert); 
-            employeeID = (Integer) session.save(employee); 
-            tx.commit(); 
+            tx = session.beginTransaction();
+            Employee employee = new Employee(fname, lname, salary);
+            employeeID = (Integer) session.save(employee);
+            tx.commit();
         }catch (HibernateException e) { 
             if (tx!=null) tx.rollback(); 
             e.printStackTrace(); 
@@ -57,24 +56,24 @@ public class ManageEmployee {
         return employeeID; 
     } 
     
-    /* Method to list all the employees detail */ 
+    /* Method to READ all the employees having salary more than 2000 */
     public void listEmployees( ){ 
         Session session = factory.openSession(); 
         Transaction tx = null; 
         try{ 
             tx = session.beginTransaction(); 
-            List employees = session.createQuery("FROM Employee").list(); 
-            for (Iterator iterator1 = employees.iterator(); iterator1.hasNext();){ 
-                Employee employee = (Employee) iterator1.next(); 
-                System.out.print("First Name: " + employee.getFirstName()); 
-                System.out.print("    Last Name: " + employee.getLastName()); 
-                System.out.println("    Salary: " + employee.getSalario()); 
-                SortedMap<String, Certificate> map = employee.getCertificates();
-                for(Map.Entry<String,Certificate> entry : map.entrySet()){
-                    System.out.print("\tCertificate Type: " + entry.getKey());
-                    System.out.println(", Name: " + (entry.getValue()).getName());
-                }
-            } tx.commit(); 
+            Criteria cr = session.createCriteria(Employee.class);
+            // Add restriction.
+            cr.add(Restrictions.gt("salario", 2000));
+            List employees = cr.list();
+            
+            for (Iterator iterator = employees.iterator(); iterator.hasNext();){
+                Employee employee = (Employee) iterator.next();
+                System.out.print("First Name: " + employee.getFirstName());
+                System.out.print(" Last Name: " + employee.getLastName());
+                System.out.println(" Salary: " + employee.getSalario());
+            }
+            tx.commit(); 
         }catch (HibernateException e) { 
             if (tx!=null) tx.rollback(); 
             e.printStackTrace(); 
@@ -83,56 +82,40 @@ public class ManageEmployee {
         } 
     }
     
-    public void listNameEmployesWithSalaryBiggerThan(int salary){ 
-        Session session = factory.openSession(); 
+    /* Method to print total number of records */
+    public void countEmployee(){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            Criteria cr = session.createCriteria(Employee.class);
+            // To get total row count.
+            cr.setProjection(Projections.rowCount());
+            List rowCount = cr.list();
+            System.out.println("Total Coint: " + rowCount.get(0) );
+            tx.commit();
+        }catch (HibernateException e) { 
+            if (tx!=null) tx.rollback(); 
+            e.printStackTrace(); 
+        }finally { 
+            session.close(); 
+        } 
+    }
+    
+    /* Method to print sum of salaries */
+    public void totalSalary(){ 
+        Session session = factory.openSession();
         Transaction tx = null; 
         try{ 
             tx = session.beginTransaction();
-            String select = "SELECT E.firstName, E.salario FROM Employee E WHERE E.salario > "+salary;
-            List employees = session.createQuery(select).list(); 
-            for (Iterator iterator1 = employees.iterator(); iterator1.hasNext();){ 
-                Object[] respuesta = (Object[]) iterator1.next(); 
-                System.out.println("First Name: " + (String)respuesta[0] + " - Salary: " + (Integer)respuesta[1]);
-            }
-            System.out.println();
-            tx.commit(); 
+            Criteria cr = session.createCriteria(Employee.class);
+            // To get total salary.
+            cr.setProjection(Projections.sum("salario"));
+            List totalSalary = cr.list();
+            System.out.println("Total Salary: " + totalSalary.get(0) );
+            tx.commit();
         }catch (HibernateException e) { 
-            if (tx!=null) tx.rollback(); 
-            e.printStackTrace(); 
-        }finally { 
-            session.close(); 
-        } 
-    }
-    
-    /* Method to update salary for an employee */ 
-    public void updateEmployee(Integer EmployeeID, int salary ){ 
-        Session session = factory.openSession(); 
-        Transaction tx = null; 
-        try{ 
-            tx = session.beginTransaction(); 
-            Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
-            employee.setSalario( salary ); 
-            session.update(employee); 
-            tx.commit(); 
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback(); 
-            e.printStackTrace(); 
-        }finally { 
-            session.close(); 
-        } 
-    } 
-    
-    /* Method to delete an employee from the records */ 
-    public void deleteEmployee(Integer EmployeeID){ 
-        Session session = factory.openSession(); 
-        Transaction tx = null; 
-        try{ 
-            tx = session.beginTransaction(); 
-            Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
-            session.delete(employee); 
-            tx.commit(); 
-        }catch (HibernateException e) { 
-            if (tx!=null) tx.rollback(); 
+            if (tx!=null) tx.rollback();
             e.printStackTrace(); 
         }finally { 
             session.close(); 

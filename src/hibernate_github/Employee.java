@@ -5,8 +5,6 @@
  */
 package hibernate_github;
 
-import java.util.SortedMap;
-
 public class Employee {
     
     private int id;
@@ -16,8 +14,6 @@ public class Employee {
     private String lastName;
     
     private int salario;
-    
-    private SortedMap certificates;
 
     public Employee() {
     }
@@ -54,13 +50,5 @@ public class Employee {
 
     public void setSalario(int salario) {
         this.salario = salario;
-    }
-    
-    public SortedMap getCertificates() {
-        return certificates;
-    }
-    
-    public void setCertificates(SortedMap certificates) {
-        this.certificates = certificates;
     }
 }

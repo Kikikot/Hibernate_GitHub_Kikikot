@@ -5,11 +5,6 @@
         <id column="id" name="id" type="integer" access="field">
             <generator class="native"/>
         </id>
-        <map name="certificates" cascade="all" sort="hibernate_github.MyClass" >
-            <key column="employee_id"/>
-            <index column="certificate_type" type="string"/>
-            <one-to-many class="hibernate_github.Certificate"/>
-        </map>
         <property name="firstName" column="first_Name" type="string"/>
         <property name="lastName" column="last_Name" type="string"/>
         <property name="salario" column="salary" type="integer"/>
