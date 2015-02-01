@@ -34,16 +34,13 @@ public class Main {
         Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);
         
         /* List down all the employees */
-        ME.listEmployees();
+        ME.listNameEmployesWithSalaryBiggerThan(3500);
         
         /* Update employee's salary records */
-        ME.updateEmployee(empID, 5000);
-        
-        /* Delete an employee from the database */
-        ME.deleteEmployee(empID2);
+        ME.updateEmployee(empID2, 5000);
         
         /* List down all the employees */
-        ME.listEmployees();
+        ME.listNameEmployesWithSalaryBiggerThan(3500);
         
         ME.close();
     }

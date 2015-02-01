@@ -83,6 +83,27 @@ public class ManageEmployee {
         } 
     }
     
+    public void listNameEmployesWithSalaryBiggerThan(int salary){ 
+        Session session = factory.openSession(); 
+        Transaction tx = null; 
+        try{ 
+            tx = session.beginTransaction();
+            String select = "SELECT E.firstName, E.salario FROM Employee E WHERE E.salario > "+salary;
+            List employees = session.createQuery(select).list(); 
+            for (Iterator iterator1 = employees.iterator(); iterator1.hasNext();){ 
+                Object[] respuesta = (Object[]) iterator1.next(); 
+                System.out.println("First Name: " + (String)respuesta[0] + " - Salary: " + (Integer)respuesta[1]);
+            }
+            System.out.println();
+            tx.commit(); 
+        }catch (HibernateException e) { 
+            if (tx!=null) tx.rollback(); 
+            e.printStackTrace(); 
+        }finally { 
+            session.close(); 
+        } 
+    }
+    
     /* Method to update salary for an employee */ 
     public void updateEmployee(Integer EmployeeID, int salary ){ 
         Session session = factory.openSession(); 
