@@ -7,14 +7,11 @@ package hibernate_github;
 
 import java.util.Iterator;
 import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -28,6 +25,7 @@ public class ManageEmployee {
     
     public ManageEmployee(){
         Configuration configuration = new Configuration();
+        configuration.setInterceptor(new MyInterceptor());
         configuration.configure();
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
         factory = configuration.buildSessionFactory(serviceRegistry);
@@ -62,10 +60,7 @@ public class ManageEmployee {
         Transaction tx = null; 
         try{ 
             tx = session.beginTransaction(); 
-            Criteria cr = session.createCriteria(Employee.class);
-            // Add restriction.
-            cr.add(Restrictions.gt("salario", 2000));
-            List employees = cr.list();
+            List employees = session.createQuery("FROM Employee").list();
             
             for (Iterator iterator = employees.iterator(); iterator.hasNext();){
                 Employee employee = (Employee) iterator.next();
@@ -82,40 +77,33 @@ public class ManageEmployee {
         } 
     }
     
-    /* Method to print total number of records */
-    public void countEmployee(){
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            Criteria cr = session.createCriteria(Employee.class);
-            // To get total row count.
-            cr.setProjection(Projections.rowCount());
-            List rowCount = cr.list();
-            System.out.println("Total Coint: " + rowCount.get(0) );
-            tx.commit();
+    /* Method to UPDATE salary for an employee */ 
+    public void updateEmployee(Integer EmployeeID, int salary ){ 
+        Session session = factory.openSession(); 
+        Transaction tx = null; 
+        try{ 
+            tx = session.beginTransaction(); 
+            Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
+            employee.setSalario( salary );
+            tx.commit(); 
         }catch (HibernateException e) { 
-            if (tx!=null) tx.rollback(); 
+            if (tx!=null) tx.rollback();
             e.printStackTrace(); 
         }finally { 
             session.close(); 
         } 
     }
     
-    /* Method to print sum of salaries */
-    public void totalSalary(){ 
-        Session session = factory.openSession();
+    /* Method to DELETE an employee from the records */
+    public void deleteEmployee(Integer EmployeeID){ 
+        Session session = factory.openSession(); 
         Transaction tx = null; 
-        try{ 
-            tx = session.beginTransaction();
-            Criteria cr = session.createCriteria(Employee.class);
-            // To get total salary.
-            cr.setProjection(Projections.sum("salario"));
-            List totalSalary = cr.list();
-            System.out.println("Total Salary: " + totalSalary.get(0) );
-            tx.commit();
+        try{ tx = session.beginTransaction(); 
+        Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
+        session.delete(employee); 
+        tx.commit(); 
         }catch (HibernateException e) { 
-            if (tx!=null) tx.rollback();
+            if (tx!=null) tx.rollback(); 
             e.printStackTrace(); 
         }finally { 
             session.close(); 
